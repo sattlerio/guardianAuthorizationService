@@ -1,0 +1,17 @@
+logging:
+  level: INFO
+  loggers:
+    io.sattler: DEBUG
+server:
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 9000
+database:
+  driverClass: org.postgresql.Driver
+  user: ${GUARDIAN_SERVICE_POSTGRES_USER}
+  password: ${GUARDIAN_SERVICE_POSTGRES_PASSWORD}
+  url: jdbc:postgresql://${GUARDIAN_SERVICE_POSTGRES_HOST}:${GUARDIAN_SERVICE_POSTGRES_PORT}/${GUARDIAN_SERVICE_POSTGRES_DB}
+  validationQuery: "/* MyService Health Check */ SELECT 1"
