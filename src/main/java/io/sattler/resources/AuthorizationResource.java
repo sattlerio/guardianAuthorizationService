@@ -44,16 +44,16 @@ public class AuthorizationResource {
             requestId = UUID.randomUUID().toString();
         }
 
-        log.info(requestId + ": got new request to fetch permission from user and company");
+        log.info(requestId + ": got new request to fetch permission from user " + userId + " and company " + companyId);
 
         UserPermission userPermission = userPermissionDAO.getPermissionFromUsersCompany(companyId.get().get(),
                 userId.get().get());
 
         if(userPermission == null) {
-            log.info(requestId + ": abort request because of missing permission");
+            log.info(requestId + ": abort because requested company is not allowed to access");
             PermissionResponse response = new PermissionResponse("ERROR", requestId,
                     "abort because of missing user permission");
-            return Response.status(401).entity(response).build();
+            return Response.status(404).entity(response).build();
         }
 
 
